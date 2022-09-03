@@ -1,0 +1,6 @@
+com.jcovalent.junit.logging.extensions.TestSuiteLoggingExtension
+com.jcovalent.junit.logging.extensions.Log4jFieldResolver
+com.jcovalent.junit.logging.extensions.Slf4jFieldResolver
+com.jcovalent.junit.logging.extensions.Log4jParameterResolver
+com.jcovalent.junit.logging.extensions.Slf4jParameterResolver
+com.jcovalent.junit.logging.extensions.OutputResolverExtension
