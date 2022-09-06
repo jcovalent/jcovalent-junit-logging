@@ -22,15 +22,15 @@ public final class Assertions {
 
     private Assertions() {}
 
-    public static Object assertThat(final Logger actual) {
+    public static Slf4jLoggerAssert assertThat(final Logger actual) {
         return new Slf4jLoggerAssert(actual);
     }
 
-    public static Object assertThat(final org.apache.logging.log4j.Logger actual) {
+    public static Log4jLoggerAssert assertThat(final org.apache.logging.log4j.Logger actual) {
         return new Log4jLoggerAssert(actual);
     }
 
-    public static Object assertThat(final LoggingOutput actual) {
+    public static LoggingOutputAssert assertThat(final LoggingOutput actual) {
         return new LoggingOutputAssert(actual);
     }
 }

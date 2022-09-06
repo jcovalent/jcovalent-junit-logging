@@ -23,7 +23,6 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.encoder.Encoder;
 import com.jcovalent.junit.logging.LoggingOutputScope;
-import java.lang.reflect.Method;
 import org.slf4j.LoggerFactory;
 
 public class LogbackConfiguration {
@@ -49,8 +48,7 @@ public class LogbackConfiguration {
         this.testStorage = new InMemoryLogStorage("testStorage", LoggingOutputScope.TEST);
     }
 
-    public void configureForSuite(
-            final Class<?> testClass, final String rootLevel, final String suitePattern) {
+    public void configureForSuite(final String rootLevel, final String suitePattern) {
         final Logger rootLogger = getRootLogger();
         final Level rootLoggerLevel =
                 rootLevel != null && !rootLevel.isBlank() ? Level.toLevel(rootLevel) : Level.ALL;
@@ -70,8 +68,7 @@ public class LogbackConfiguration {
         applyAppenderTo(getRootLogger(), suiteAppender);
     }
 
-    public void configureForTest(
-            final Class<?> testClass, final Method testMethod, final String testPattern) {
+    public void configureForTest(final String testPattern) {
         testLogPattern =
                 testPattern != null && !testPattern.isBlank() ? testPattern : suiteLogPattern;
 

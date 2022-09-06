@@ -96,7 +96,7 @@ spotless {
         licenseHeader(
             """
             ##
-            # Copyright (C) ${'$'}YEAR Hedera Hashgraph, LLC
+            # Copyright (C) ${'$'}YEAR JCovalent
             #
             # Licensed under the Apache License, Version 2.0 (the "License");
             # you may not use this file except in compliance with the License.

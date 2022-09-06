@@ -53,12 +53,11 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
         }
 
         logbackConfig.configureForSuite(
-                testClass, annotation.rootLogLevel().name(), extractLogPattern(context));
+                annotation.rootLogLevel().name(), extractLogPattern(context));
     }
 
     @Override
     public void beforeEach(final ExtensionContext context) throws Exception {
-        final Class<?> testClass = extractTestClass(context);
         final Method testMethod = extractTestMethod(context);
 
         final LogbackConfiguration logbackConfig =
@@ -69,7 +68,7 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
                     "Failed to locate the extension configuration via the store");
         }
 
-        logbackConfig.configureForTest(testClass, testMethod, extractLogPattern(context));
+        logbackConfig.configureForTest(extractLogPattern(context));
     }
 
     private static Method extractTestMethod(final ExtensionContext context) {

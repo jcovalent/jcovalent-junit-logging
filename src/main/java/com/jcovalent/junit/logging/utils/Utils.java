@@ -42,13 +42,7 @@ public final class Utils {
     public static void reflectOnFieldsOfType(
             final Class<?> fieldType, final Field[] fields, final Consumer<Field> consumer) {
         for (Field field : fields) {
-            if (ModifierSupport.isFinal(field)
-                    || (!fieldType.equals(field.getType())
-                            && !field.getType().isAssignableFrom(fieldType))) {
-                continue;
-            }
-
-            if (!ModifierSupport.isPublic(field) && !field.trySetAccessible()) {
+            if (!isSupportedField(fieldType, field)) {
                 continue;
             }
 
@@ -56,6 +50,7 @@ public final class Utils {
         }
     }
 
+    @SuppressWarnings("java:S3011")
     public static void reflectOnFieldSettingValue(
             final Field field, final Object instance, final Supplier<Object> valueSupplier) {
         final Object invocationTarget = ModifierSupport.isNotStatic(field) ? instance : null;
@@ -68,5 +63,15 @@ public final class Utils {
         } catch (IllegalAccessException ex) {
             throw new ExtensionConfigurationException("Failed to update the field value", ex);
         }
+    }
+
+    private static boolean isSupportedField(final Class<?> fieldType, final Field field) {
+        if (ModifierSupport.isFinal(field)
+                || (!fieldType.equals(field.getType())
+                        && !field.getType().isAssignableFrom(fieldType))) {
+            return false;
+        }
+
+        return ModifierSupport.isPublic(field) || field.trySetAccessible();
     }
 }
