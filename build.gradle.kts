@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,7 @@ dependencies {
     runtimeOnly(libs.bundles.log4j.runtime)
 
     testImplementation(libs.bundles.log4j.runtime)
+    testRuntimeOnly(libs.bundles.junit.jupiter.engine)
 }
 
 gitProperties {
@@ -248,4 +249,11 @@ nexusPublishing {
 signing {
     useGpgCmd()
     sign(publishing.publications.getByName("maven"))
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
