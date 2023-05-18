@@ -257,4 +257,3 @@ tasks.test {
         events("passed", "skipped", "failed")
     }
 }
- 
