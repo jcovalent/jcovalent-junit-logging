@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,18 @@
  */
 package com.jcovalent.junit.logging;
 
+import static com.jcovalent.junit.logging.assertj.LoggingOutputAssert.assertThatLogEntriesHaveMessages;
 import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertEmptyOutput;
 import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertOutputOfNItems;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.jcovalent.junit.logging.logback.InMemoryLogStorage;
 import com.jcovalent.junit.logging.utils.Log4jExternalLoggers;
+import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.MarkerManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @JCovalentLoggingSupport
@@ -70,4 +73,17 @@ class LoggingOutputTest {
         safeAssertOutputOfNItems(loggingOutput::infoEntries, 10);
         safeAssertOutputOfNItems(loggingOutput::infoLines, 10);
     }
+
+    @Test
+    @DisplayName("Assert the log level and message match")
+    void testAssertLogMessage(final Logger logger, final LoggingOutput loggingOutput) {
+            logger.info("This is a test message");
+            assertThatLogEntriesHaveMessages(
+                    loggingOutput,
+                    List.of(
+                            LogEntryBuilder.builder()
+                                    .level(org.slf4j.event.Level.INFO)
+                                    .message("This is a test message")
+                                    .build()));
+        }
 }
