@@ -77,13 +77,13 @@ class LoggingOutputTest {
     @Test
     @DisplayName("Assert the log level and message match")
     void testAssertLogMessage(final Logger logger, final LoggingOutput loggingOutput) {
-            logger.info("This is a test message");
-            assertThatLogEntriesHaveMessages(
-                    loggingOutput,
-                    List.of(
-                            LogEntryBuilder.builder()
-                                    .level(org.slf4j.event.Level.INFO)
-                                    .message("This is a test message")
-                                    .build()));
-        }
+        logger.info("This is a test message");
+        assertThatLogEntriesHaveMessages(
+                loggingOutput,
+                List.of(
+                        LogEntryBuilder.builder()
+                                .level(org.slf4j.event.Level.INFO)
+                                .message("This is a test message")
+                                .build()));
+    }
 }
