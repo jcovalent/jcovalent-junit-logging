@@ -32,18 +32,23 @@ public class LoggingOutputAssert extends AbstractAssert<LoggingOutputAssert, Log
     }
 
     /**
-     * Asserts that the given log entries contain the expected log entries only matching the level and message.
+     * Asserts that the given log entries contain the expected log entries only matching the level
+     * and message.
+     *
      * @param actual the loggingOutput to check
      * @param expectedLogEntries the expected log entries
      */
-    public static void assertThatLogEntriesHaveMessages(final LoggingOutput actual, List<LogEntry> expectedLogEntries) {
+    public static void assertThatLogEntriesHaveMessages(
+            final LoggingOutput actual, List<LogEntry> expectedLogEntries) {
         org.assertj.core.api.Assertions.assertThat(actual.allEntries()).isNotNull();
         for (LogEntry logEntry : expectedLogEntries) {
             org.assertj.core.api.Assertions.assertThat(actual.allEntries())
-                    .haveAtLeastOne(new Condition<>(
-                            entry -> entry.level() == logEntry.level()
-                                    && entry.message().contains(logEntry.message()),
-                            "message contains '" + logEntry.message() + "'"));
+                    .haveAtLeastOne(
+                            new Condition<>(
+                                    entry ->
+                                            entry.level() == logEntry.level()
+                                                    && entry.message().contains(logEntry.message()),
+                                    "message contains '" + logEntry.message() + "'"));
         }
     }
 }

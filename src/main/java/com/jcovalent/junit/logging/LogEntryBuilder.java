@@ -18,9 +18,7 @@ package com.jcovalent.junit.logging;
 import java.time.Instant;
 import org.slf4j.event.Level;
 
-/**
- * A builder for {@link LogEntry} instances.
- */
+/** A builder for {@link LogEntry} instances. */
 public final class LogEntryBuilder {
     private long sequenceNumber;
     private Instant timestamp;
@@ -36,6 +34,7 @@ public final class LogEntryBuilder {
 
     /**
      * Creates a new {@link LogEntryBuilder} instance.
+     *
      * @return a new {@link LogEntryBuilder} instance.
      */
     public static LogEntryBuilder builder() {
@@ -43,7 +42,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code sequenceNumber} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code sequenceNumber} and returns a reference to this Builder so that the methods
+     * can be chained together.
+     *
      * @param sequenceNumber the {@code sequenceNumber} to set
      * @return a reference to this Builder
      */
@@ -53,7 +54,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code timestamp} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code timestamp} and returns a reference to this Builder so that the methods can be
+     * chained together.
+     *
      * @param timestamp the {@code timestamp} to set
      * @return a reference to this Builder
      */
@@ -63,7 +66,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code level} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code level} and returns a reference to this Builder so that the methods can be
+     * chained together.
+     *
      * @param level the {@code level} to set
      * @return a reference to this Builder
      */
@@ -73,7 +78,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code markerName} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code markerName} and returns a reference to this Builder so that the methods can
+     * be chained together.
+     *
      * @param markerName the {@code markerName} to set
      * @return a reference to this Builder
      */
@@ -83,7 +90,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code threadName} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code threadName} and returns a reference to this Builder so that the methods can
+     * be chained together.
+     *
      * @param threadName the {@code threadName} to set
      * @return a reference to this Builder
      */
@@ -93,7 +102,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code loggerName} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code loggerName} and returns a reference to this Builder so that the methods can
+     * be chained together.
+     *
      * @param loggerName the {@code loggerName} to set
      * @return a reference to this Builder
      */
@@ -103,7 +114,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code message} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code message} and returns a reference to this Builder so that the methods can be
+     * chained together.
+     *
      * @param message the {@code message} to set
      * @return a reference to this Builder
      */
@@ -113,7 +126,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code throwable} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code throwable} and returns a reference to this Builder so that the methods can be
+     * chained together.
+     *
      * @param throwable the {@code throwable} to set
      * @return a reference to this Builder
      */
@@ -123,7 +138,9 @@ public final class LogEntryBuilder {
     }
 
     /**
-     * Sets the {@code formattedLogLine} and returns a reference to this Builder so that the methods can be chained together.
+     * Sets the {@code formattedLogLine} and returns a reference to this Builder so that the methods
+     * can be chained together.
+     *
      * @param formattedLogLine the {@code formattedLogLine} to set
      * @return a reference to this Builder
      */
@@ -134,6 +151,7 @@ public final class LogEntryBuilder {
 
     /**
      * Returns a {@code LogEntry} built from the parameters previously set.
+     *
      * @return a {@code LogEntry} built with parameters of this {@code LogEntryBuilder}
      */
     public LogEntry build() {
