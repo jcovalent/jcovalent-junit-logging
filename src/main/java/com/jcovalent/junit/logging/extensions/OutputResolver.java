@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,18 +25,12 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 
 abstract class OutputResolver {
-    public Object resolve(
-            final ExtensionContext extensionContext,
-            final Class<?> declaringClass,
-            final Member member) {
+    public Object resolve(final ExtensionContext extensionContext, final Class<?> declaringClass, final Member member) {
         final LogbackConfiguration logbackConfig =
-                extensionContext
-                        .getStore(NAMESPACE)
-                        .get(LOGBACK_CONFIG_KEY, LogbackConfiguration.class);
+                extensionContext.getStore(NAMESPACE).get(LOGBACK_CONFIG_KEY, LogbackConfiguration.class);
 
         if (logbackConfig == null) {
-            throw new ParameterResolutionException(
-                    "Failed to locate the extension configuration via the store");
+            throw new ParameterResolutionException("Failed to locate the extension configuration via the store");
         }
 
         if (member instanceof Method) {

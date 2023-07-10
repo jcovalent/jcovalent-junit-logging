@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,27 +31,18 @@ abstract class LogFieldResolver<L> extends LogResolver<L> implements TestInstanc
     }
 
     @Override
-    public void postProcessTestInstance(Object testInstance, ExtensionContext context)
-            throws Exception {
+    public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
         final Class<?> testClass = testInstance.getClass();
         processFields(context, testInstance, testClass, testClass.getFields());
         processFields(context, testInstance, testClass, testClass.getDeclaredFields());
     }
 
     private void processFields(
-            final ExtensionContext context,
-            final Object testInstance,
-            final Class<?> testClass,
-            final Field[] fields) {
-        reflectOnFieldsOfType(
-                getLoggerClass(),
-                fields,
-                field -> {
-                    final ManagedLogger ml = field.getAnnotation(ManagedLogger.class);
-                    reflectOnFieldSettingValue(
-                            field,
-                            testInstance,
-                            () -> resolve(context, testClass, new String[] {field.getName()}, ml));
-                });
+            final ExtensionContext context, final Object testInstance, final Class<?> testClass, final Field[] fields) {
+        reflectOnFieldsOfType(getLoggerClass(), fields, field -> {
+            final ManagedLogger ml = field.getAnnotation(ManagedLogger.class);
+            reflectOnFieldSettingValue(
+                    field, testInstance, () -> resolve(context, testClass, new String[] {field.getName()}, ml));
+        });
     }
 }

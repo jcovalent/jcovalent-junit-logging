@@ -15,37 +15,20 @@
  */
 
 import java.time.Duration
-/*
- * Copyright (C) 2022 JCovalent
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 plugins {
-    `java-library`
-    `maven-publish`
-    signing
+    id("java-library")
+    id("maven-publish")
+    id("signing")
 
-    id("com.gorylenko.gradle-git-properties") version("2.4.1")
-    id("com.diffplug.spotless") version("6.8.0")
-    id("io.github.gradle-nexus.publish-plugin") version("1.1.0")
+    id("com.gorylenko.gradle-git-properties").version("2.4.1")
+    id("com.diffplug.spotless").version("6.19.0")
+    id("io.github.gradle-nexus.publish-plugin").version("1.3.0")
 }
 
 group = "com.jcovalent.junit"
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
 java {
     withJavadocJar()
@@ -59,7 +42,7 @@ dependencies {
     implementation(libs.bundles.log4j.api)
     implementation(libs.bundles.logback.api)
     implementation(libs.bundles.logback.runtime)
-    implementation(testLibs.bundles.assertj)
+    implementation(libs.bundles.assertj)
 
     runtimeOnly(libs.bundles.log4j.runtime)
 
@@ -67,11 +50,9 @@ dependencies {
     testRuntimeOnly(libs.bundles.junit.jupiter.engine)
 }
 
-gitProperties {
-    keys = listOf("git.commit.id", "git.commit.id.abbrev", "git.build.version")
-}
+gitProperties { keys = listOf("git.commit.id", "git.commit.id.abbrev", "git.build.version") }
 
-tasks.withType<AbstractArchiveTask>() {
+tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true
     dirMode = 775
@@ -111,8 +92,9 @@ spotless {
             # See the License for the specific language governing permissions and
             # limitations under the License.
             ##
-            """.trimIndent(),
-            "(name)"
+            """
+                .trimIndent(),
+            "(name)",
         )
     }
 
@@ -120,9 +102,8 @@ spotless {
         targetExclude("build/generated/sources/**/*.java")
         // enable toggle comment support
         toggleOffOn()
-        // don't need to set target, it is inferred from java
-        // apply a specific flavor of google-java-format
-        googleJavaFormat().aosp().reflowLongStrings()
+        // apply palantir formatting
+        palantirJavaFormat()
         // make sure every file has the following copyright header.
         // optionally, Spotless can set copyright years by digging
         // through git history (see "license" section below).
@@ -145,13 +126,14 @@ spotless {
             * See the License for the specific language governing permissions and
             * limitations under the License.
             */
-            """.trimIndent(),
-            "(package|import|module)"
+            """
+                .trimIndent(),
+            "(package|import|module)",
         )
     }
 
     kotlinGradle {
-        ktlint().editorConfigOverride(mapOf("disabled_rules" to "no-wildcard-imports"))
+        ktlint()
 
         licenseHeader(
             """
@@ -170,8 +152,9 @@ spotless {
             * See the License for the specific language governing permissions and
             * limitations under the License.
             */${"\n\n"}
-            """.trimIndent(),
-            "(import|plugins|pluginManagement|dependencies)"
+            """
+                .trimIndent(),
+            "(import|plugins|pluginManagement|dependencies)",
         )
     }
 }
@@ -232,17 +215,12 @@ publishing {
 
 nexusPublishing {
     useStaging.set(true)
-    transitionCheckOptions {
-        delayBetween.set(Duration.ofSeconds(20))
-    }
-
-    repositories {
-        sonatype { // only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("MAVEN_CENTRAL_USERNAME"))
-            password.set(System.getenv("MAVEN_CENTRAL_PASSWORD"))
-        }
+    transitionCheckOptions { delayBetween.set(Duration.ofSeconds(20)) }
+    repositories.sonatype {
+        nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+        snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        username.set(System.getenv("MAVEN_CENTRAL_USERNAME"))
+        password.set(System.getenv("MAVEN_CENTRAL_PASSWORD"))
     }
 }
 
@@ -253,7 +231,5 @@ signing {
 
 tasks.test {
     useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
+    testLogging { events("passed", "skipped", "failed") }
 }

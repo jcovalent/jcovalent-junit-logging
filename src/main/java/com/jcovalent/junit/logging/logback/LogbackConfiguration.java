@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class LogbackConfiguration {
 
-    private static final String DEFAULT_PATTERN =
-            "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %-16marker <%t> %c{0}: %msg%n";
+    private static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %-16marker <%t> %c{0}: %msg%n";
 
     private String suiteLogPattern;
 
@@ -50,11 +49,9 @@ public class LogbackConfiguration {
 
     public void configureForSuite(final String rootLevel, final String suitePattern) {
         final Logger rootLogger = getRootLogger();
-        final Level rootLoggerLevel =
-                rootLevel != null && !rootLevel.isBlank() ? Level.toLevel(rootLevel) : Level.ALL;
+        final Level rootLoggerLevel = rootLevel != null && !rootLevel.isBlank() ? Level.toLevel(rootLevel) : Level.ALL;
 
-        suiteLogPattern =
-                suitePattern != null && !suitePattern.isBlank() ? suitePattern : DEFAULT_PATTERN;
+        suiteLogPattern = suitePattern != null && !suitePattern.isBlank() ? suitePattern : DEFAULT_PATTERN;
 
         getContext().reset();
         rootLogger.setLevel(rootLoggerLevel);
@@ -69,8 +66,7 @@ public class LogbackConfiguration {
     }
 
     public void configureForTest(final String testPattern) {
-        testLogPattern =
-                testPattern != null && !testPattern.isBlank() ? testPattern : suiteLogPattern;
+        testLogPattern = testPattern != null && !testPattern.isBlank() ? testPattern : suiteLogPattern;
 
         testStorage.reset();
 
@@ -117,9 +113,7 @@ public class LogbackConfiguration {
     }
 
     private MemoryAppender<ILoggingEvent> createAppender(
-            final String name,
-            final Encoder<ILoggingEvent> encoder,
-            final InMemoryLogStorage storage) {
+            final String name, final Encoder<ILoggingEvent> encoder, final InMemoryLogStorage storage) {
         final MemoryAppender<ILoggingEvent> appender = new MemoryAppender<>();
         appender.setName(name);
         appender.setContext(getContext());

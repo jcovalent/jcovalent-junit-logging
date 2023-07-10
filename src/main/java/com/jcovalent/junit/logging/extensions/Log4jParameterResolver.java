@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public class Log4jParameterResolver extends LogParameterResolver<Logger>
-        implements ParameterResolver {
+public class Log4jParameterResolver extends LogParameterResolver<Logger> implements ParameterResolver {
     public Log4jParameterResolver() {
         super(Logger.class, LogManager::getLogger);
     }

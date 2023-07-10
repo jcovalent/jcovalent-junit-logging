@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,7 @@ public class Log4jExternalLoggers {
     private static final Marker GENERAL_MARKER = MarkerManager.getMarker("GENERAL");
 
     private final Logger logger =
-            LogManager.getLogger(
-                    String.format("%s.%s", Log4jExternalLoggers.class.getName(), "instanceLogger"));
+            LogManager.getLogger(String.format("%s.%s", Log4jExternalLoggers.class.getName(), "instanceLogger"));
 
     public Log4jExternalLoggers() {}
 
@@ -41,8 +40,7 @@ public class Log4jExternalLoggers {
             LOG.log(
                     level,
                     GENERAL_MARKER,
-                    "[[Static]] logRepeatedNTimes at {} level for {} iterations, currently on"
-                            + " iteration {}",
+                    "[[Static]] logRepeatedNTimes at {} level for {} iterations, currently on" + " iteration {}",
                     level,
                     n,
                     i);
@@ -53,8 +51,7 @@ public class Log4jExternalLoggers {
         assertThat(n).isPositive();
 
         for (int i = 0; i < n; i++) {
-            logger.info(
-                    "[[Instance]] infoNTimes for {} iterations, currently on iteration {}", n, i);
+            logger.info("[[Instance]] infoNTimes for {} iterations, currently on iteration {}", n, i);
         }
     }
 }

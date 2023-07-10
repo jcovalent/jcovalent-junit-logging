@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,7 @@ public final class Utils {
 
     private Utils() {}
 
-    public static String qualifiedMemberName(
-            final Class<?> declaringClass, final String... members) {
+    public static String qualifiedMemberName(final Class<?> declaringClass, final String... members) {
         final StringBuilder builder = new StringBuilder();
         builder.append(declaringClass.getName());
 
@@ -67,8 +66,7 @@ public final class Utils {
 
     private static boolean isSupportedField(final Class<?> fieldType, final Field field) {
         if (ModifierSupport.isFinal(field)
-                || (!fieldType.equals(field.getType())
-                        && !field.getType().isAssignableFrom(fieldType))) {
+                || (!fieldType.equals(field.getType()) && !field.getType().isAssignableFrom(fieldType))) {
             return false;
         }
 

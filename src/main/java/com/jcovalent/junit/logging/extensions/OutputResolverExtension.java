@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,21 +26,17 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
-public class OutputResolverExtension extends OutputResolver
-        implements TestInstancePostProcessor, ParameterResolver {
+public class OutputResolverExtension extends OutputResolver implements TestInstancePostProcessor, ParameterResolver {
 
     @Override
-    public boolean supportsParameter(
-            ParameterContext parameterContext, ExtensionContext extensionContext)
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
         final Class<?> paramType = parameterContext.getParameter().getType();
-        return LoggingOutput.class.equals(paramType)
-                || paramType.isAssignableFrom(LoggingOutput.class);
+        return LoggingOutput.class.equals(paramType) || paramType.isAssignableFrom(LoggingOutput.class);
     }
 
     @Override
-    public Object resolveParameter(
-            ParameterContext parameterContext, ExtensionContext extensionContext)
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
         return resolve(
                 extensionContext,
@@ -49,24 +45,16 @@ public class OutputResolverExtension extends OutputResolver
     }
 
     @Override
-    public void postProcessTestInstance(Object testInstance, ExtensionContext context)
-            throws Exception {
+    public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
         final Class<?> testClass = testInstance.getClass();
         processFields(context, testInstance, testClass, testClass.getFields());
         processFields(context, testInstance, testClass, testClass.getDeclaredFields());
     }
 
     private void processFields(
-            final ExtensionContext context,
-            final Object testInstance,
-            final Class<?> testClass,
-            final Field[] fields) {
-        reflectOnFieldsOfType(
-                LoggingOutput.class,
-                fields,
-                field -> {
-                    reflectOnFieldSettingValue(
-                            field, testInstance, () -> resolve(context, testClass, field));
-                });
+            final ExtensionContext context, final Object testInstance, final Class<?> testClass, final Field[] fields) {
+        reflectOnFieldsOfType(LoggingOutput.class, fields, field -> {
+            reflectOnFieldSettingValue(field, testInstance, () -> resolve(context, testClass, field));
+        });
     }
 }
