@@ -25,14 +25,23 @@ permissions:
   contents: read
 
 jobs:
-  stage-artifact:
-    name: "Stage Artifact"
+  code-compiles:
+    name: "Code Compiles"
     runs-on: ubuntu-latest
     steps:
       - name: Install Security Agent
-        uses: step-security/harden-runner@dd2c410b088af7c0dc8046f3ac9a8f4148492a95
+        uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            downloads.gradle.org:443
+            github.com:443
+            jcenter.bintray.com:443
+            plugins-artifacts.gradle.org:443
+            plugins.gradle.org:443
+            repo.maven.apache.org:443
+            scans-in.gradle.com:443
+            services.gradle.org:443
 
       - name: Checkout Code
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
