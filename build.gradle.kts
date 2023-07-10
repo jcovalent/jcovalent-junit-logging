@@ -52,7 +52,7 @@ dependencies {
 
 gitProperties { keys = listOf("git.commit.id", "git.commit.id.abbrev", "git.build.version") }
 
-tasks.withType<AbstractArchiveTask>() {
+tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true
     dirMode = 775

@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Security Agent
-        uses: step-security/harden-runner@dd2c410b088af7c0dc8046f3ac9a8f4148492a95
+        uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -45,11 +45,11 @@ jobs:
             jcenter.bintray.com:443
 
       - name: Checkout Code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Import GPG key
         id: gpg-key
-        uses: crazy-max/ghaction-import-gpg@c8bb57c57e8df1be8c73ff3d59deab1dbc00e0d1
+        uses: crazy-max/ghaction-import-gpg@72b6676b71ab476b77e676928516f6982eef7a41 #v5.3.0
         if: ${{ inputs.dry-run-enabled != true }}
         with:
           gpg_private_key: ${{ secrets.GPG_KEY_CONTENTS }}
@@ -60,13 +60,13 @@ jobs:
           git_tag_gpgsign: true
 
       - name: Setup Java
-        uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
+        uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # v3.11.0
         with:
           distribution: temurin
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@356abb47e7664b5505e25d7997a5a522a17c62d9
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           gradle-version: wrapper
           gradle-home-cache-includes: |
@@ -75,13 +75,13 @@ jobs:
             jdks
 
       - name: Gradle Assemble
-        uses: gradle/gradle-build-action@356abb47e7664b5505e25d7997a5a522a17c62d9
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           gradle-version: wrapper
           arguments: assemble --scan
 
       - name: Gradle Publish
-        uses: gradle/gradle-build-action@356abb47e7664b5505e25d7997a5a522a17c62d9
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
