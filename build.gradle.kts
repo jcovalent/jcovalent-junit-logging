@@ -17,9 +17,9 @@
 import java.time.Duration
 
 plugins {
-    `java-library`
-    `maven-publish`
-    signing
+    id("java-library")
+    id("`maven-publish")
+    id("signing")
 
     id("com.gorylenko.gradle-git-properties").version("2.4.1")
     id("com.diffplug.spotless").version("6.19.0")
@@ -216,14 +216,11 @@ publishing {
 nexusPublishing {
     useStaging.set(true)
     transitionCheckOptions { delayBetween.set(Duration.ofSeconds(20)) }
-
-    repositories {
-        sonatype { // only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("MAVEN_CENTRAL_USERNAME"))
-            password.set(System.getenv("MAVEN_CENTRAL_PASSWORD"))
-        }
+    repositories.sonatype {
+        nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+        snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        username.set(System.getenv("MAVEN_CENTRAL_USERNAME"))
+        password.set(System.getenv("MAVEN_CENTRAL_PASSWORD"))
     }
 }
 
