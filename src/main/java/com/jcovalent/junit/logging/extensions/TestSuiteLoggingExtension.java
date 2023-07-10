@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 
 public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachCallback {
-    protected static final Namespace NAMESPACE =
-            Namespace.create(TestSuiteLoggingExtension.class.getPackageName());
+    protected static final Namespace NAMESPACE = Namespace.create(TestSuiteLoggingExtension.class.getPackageName());
 
     protected static final String LOGBACK_CONFIG_KEY = "logback";
 
@@ -37,23 +36,17 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
     public void beforeAll(final ExtensionContext context) throws Exception {
         final Class<?> testClass = extractTestClass(context);
 
-        final LogbackConfiguration logbackConfig =
-                context.getStore(NAMESPACE)
-                        .getOrComputeIfAbsent(
-                                LOGBACK_CONFIG_KEY,
-                                k -> new LogbackConfiguration(),
-                                LogbackConfiguration.class);
+        final LogbackConfiguration logbackConfig = context.getStore(NAMESPACE)
+                .getOrComputeIfAbsent(LOGBACK_CONFIG_KEY, k -> new LogbackConfiguration(), LogbackConfiguration.class);
 
-        final JCovalentLoggingSupport annotation =
-                testClass.getAnnotation(JCovalentLoggingSupport.class);
+        final JCovalentLoggingSupport annotation = testClass.getAnnotation(JCovalentLoggingSupport.class);
 
         if (annotation == null) {
             throw new ExtensionConfigurationException(
                     "Failed to find the JCovalentLoggingSupport annotation on the test suite");
         }
 
-        logbackConfig.configureForSuite(
-                annotation.rootLogLevel().name(), extractLogPattern(context));
+        logbackConfig.configureForSuite(annotation.rootLogLevel().name(), extractLogPattern(context));
     }
 
     @Override
@@ -64,8 +57,7 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
                 context.getStore(NAMESPACE).get(LOGBACK_CONFIG_KEY, LogbackConfiguration.class);
 
         if (logbackConfig == null) {
-            throw new ExtensionConfigurationException(
-                    "Failed to locate the extension configuration via the store");
+            throw new ExtensionConfigurationException("Failed to locate the extension configuration via the store");
         }
 
         logbackConfig.configureForTest(extractLogPattern(context));
@@ -75,8 +67,7 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
         final Optional<Method> testMethod = context.getTestMethod();
 
         if (testMethod.isEmpty()) {
-            throw new ExtensionConfigurationException(
-                    "The extension context failed to provided the test method");
+            throw new ExtensionConfigurationException("The extension context failed to provided the test method");
         }
 
         return testMethod.get();
@@ -86,8 +77,7 @@ public class TestSuiteLoggingExtension implements BeforeAllCallback, BeforeEachC
         final Optional<Class<?>> testClass = context.getTestClass();
 
         if (testClass.isEmpty()) {
-            throw new ExtensionConfigurationException(
-                    "The extension context failed to provided the test class");
+            throw new ExtensionConfigurationException("The extension context failed to provided the test class");
         }
 
         return testClass.get();

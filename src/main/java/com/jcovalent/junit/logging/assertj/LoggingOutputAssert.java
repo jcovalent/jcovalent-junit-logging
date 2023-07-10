@@ -19,14 +19,29 @@ import com.jcovalent.junit.logging.LogEntry;
 import com.jcovalent.junit.logging.LoggingOutput;
 import java.util.List;
 import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
 
+/**
+ * AssertJ compatible extensions for {@link LoggingOutput} instances.
+ */
 public class LoggingOutputAssert extends AbstractAssert<LoggingOutputAssert, LoggingOutput> {
 
+    /**
+     * Creates a new {@link LoggingOutputAssert} to make assertions on {@link LoggingOutput} instances.
+     *
+     * @param actual the LoggingOutput instance to make assertions against.
+     */
     public LoggingOutputAssert(final LoggingOutput actual) {
-        super(actual, LoggingOutput.class);
+        super(actual, LoggingOutputAssert.class);
     }
 
+    /**
+     * Creates a new {@link LoggingOutputAssert} to make assertions on {@link LoggingOutput} instances.
+     *
+     * @param actual the LoggingOutput instance to make assertions against.
+     * @return a new {@link LoggingOutputAssert} instance.
+     */
     public static LoggingOutputAssert assertThat(final LoggingOutput actual) {
         return new LoggingOutputAssert(actual);
     }
@@ -35,20 +50,16 @@ public class LoggingOutputAssert extends AbstractAssert<LoggingOutputAssert, Log
      * Asserts that the given log entries contain the expected log entries only matching the level
      * and message.
      *
-     * @param actual the loggingOutput to check
-     * @param expectedLogEntries the expected log entries
+     * @param expectedLogEntries the expected log entries.
      */
-    public static void assertThatLogEntriesHaveMessages(
-            final LoggingOutput actual, List<LogEntry> expectedLogEntries) {
+    public void hasAtLeastOneEntry(List<LogEntry> expectedLogEntries) {
         org.assertj.core.api.Assertions.assertThat(actual.allEntries()).isNotNull();
         for (LogEntry logEntry : expectedLogEntries) {
-            org.assertj.core.api.Assertions.assertThat(actual.allEntries())
-                    .haveAtLeastOne(
-                            new Condition<>(
-                                    entry ->
-                                            entry.level() == logEntry.level()
-                                                    && entry.message().contains(logEntry.message()),
-                                    "message contains '" + logEntry.message() + "'"));
+            Assertions.assertThat(actual.allEntries())
+                    .haveAtLeastOne(new Condition<>(
+                            entry -> entry.level() == logEntry.level()
+                                    && entry.message().contains(logEntry.message()),
+                            "message contains '" + logEntry.message() + "'"));
         }
     }
 }

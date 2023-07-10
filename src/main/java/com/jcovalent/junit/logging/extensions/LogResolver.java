@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,13 +44,10 @@ abstract class LogResolver<L> {
             final String[] members,
             final ManagedLogger ml) {
         final LogbackConfiguration logbackConfig =
-                extensionContext
-                        .getStore(NAMESPACE)
-                        .get(LOGBACK_CONFIG_KEY, LogbackConfiguration.class);
+                extensionContext.getStore(NAMESPACE).get(LOGBACK_CONFIG_KEY, LogbackConfiguration.class);
 
         if (logbackConfig == null) {
-            throw new ParameterResolutionException(
-                    "Failed to locate the extension configuration via the store");
+            throw new ParameterResolutionException("Failed to locate the extension configuration via the store");
         }
 
         String loggerName = null;

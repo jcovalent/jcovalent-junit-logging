@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,19 @@ pluginManagement {
     }
 }
 
-plugins {
-    id("com.gradle.enterprise") version("3.11.1")
-}
+plugins { id("com.gradle.enterprise") version ("3.13.4") }
 
 dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
     versionCatalogs {
         create("libs") {
-            version("slf4j-version", "2.0.0")
-            version("logback-version", "1.4.0")
-            version("log4j-version", "2.18.0")
-            version("junit-jupiter-version", "5.9.0")
-            version("junit-platform-version", "1.9.0")
+            version("assertj-version", "3.24.2")
+            version("slf4j-version", "2.0.7")
+            version("logback-version", "1.4.8")
+            version("log4j-version", "2.20.0")
+            version("junit-jupiter-version", "5.9.3")
+            version("junit-platform-version", "1.9.3")
 
+            bundle("assertj", listOf("assertj-core"))
             bundle("slf4j-api", listOf("slf4j-api"))
             bundle("logback-api", listOf("logback-core"))
             bundle("logback-runtime", listOf("logback-classic"))
@@ -44,25 +43,24 @@ dependencyResolutionManagement {
             bundle("junit-jupiter-api", listOf("junit-jupiter-api"))
             bundle("junit-jupiter-engine", listOf("junit-jupiter-engine"))
 
+            library("assertj-core", "org.assertj", "assertj-core").versionRef("assertj-version")
+
             library("slf4j-api", "org.slf4j", "slf4j-api").versionRef("slf4j-version")
             library("logback-core", "ch.qos.logback", "logback-core").versionRef("logback-version")
             library("logback-classic", "ch.qos.logback", "logback-classic").versionRef("logback-version")
             library("log4j-api", "org.apache.logging.log4j", "log4j-api").versionRef("log4j-version")
-            library("log4j-bridge", "org.apache.logging.log4j", "log4j-to-slf4j").versionRef("log4j-version")
+            library("log4j-bridge", "org.apache.logging.log4j", "log4j-to-slf4j")
+                .versionRef("log4j-version")
 
-            library("junit-platform-commons", "org.junit.platform", "junit-platform-commons").versionRef("junit-platform-version")
+            library("junit-platform-commons", "org.junit.platform", "junit-platform-commons")
+                .versionRef("junit-platform-version")
 
-            library("junit-jupiter-api", "org.junit.jupiter", "junit-jupiter-api").versionRef("junit-jupiter-version")
-            library("junit-jupiter-params", "org.junit.jupiter", "junit-jupiter-params").versionRef("junit-jupiter-version")
-            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").versionRef("junit-jupiter-version")
-        }
-
-        create("testLibs") {
-            version("assertj-version", "3.23.1")
-
-            bundle("assertj", listOf("assertj-core"))
-
-            library("assertj-core", "org.assertj", "assertj-core").versionRef("assertj-version")
+            library("junit-jupiter-api", "org.junit.jupiter", "junit-jupiter-api")
+                .versionRef("junit-jupiter-version")
+            library("junit-jupiter-params", "org.junit.jupiter", "junit-jupiter-params")
+                .versionRef("junit-jupiter-version")
+            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine")
+                .versionRef("junit-jupiter-version")
         }
     }
 }

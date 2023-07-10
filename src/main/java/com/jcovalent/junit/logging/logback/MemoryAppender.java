@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,9 +35,7 @@ public class MemoryAppender<E extends ILoggingEvent> extends AppenderBase<E> {
     @Override
     public void start() {
         if (this.encoder == null) {
-            addStatus(
-                    new ErrorStatus(
-                            "No encoder set for the appender named \"" + name + "\".", this));
+            addStatus(new ErrorStatus("No encoder set for the appender named \"" + name + "\".", this));
             return;
         }
 
@@ -123,8 +121,7 @@ public class MemoryAppender<E extends ILoggingEvent> extends AppenderBase<E> {
             case Level.INFO_INT -> org.slf4j.event.Level.INFO;
             case Level.WARN_INT -> org.slf4j.event.Level.WARN;
             case Level.ERROR_INT -> org.slf4j.event.Level.ERROR;
-            default -> throw new IllegalArgumentException(
-                    String.format("Unknown SLF4J Level: %s", level));
+            default -> throw new IllegalArgumentException(String.format("Unknown SLF4J Level: %s", level));
         };
     }
 }

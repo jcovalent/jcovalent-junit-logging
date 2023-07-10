@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,7 @@ class Log4jParameterResolverTest {
                 .isNotNull()
                 .isInstanceOf(SLF4JLogger.class)
                 .extracting(Logger::getName)
-                .isEqualTo(
-                        qualifiedMemberName(this.getClass(), "testBasicParameterBinding", "arg0"));
+                .isEqualTo(qualifiedMemberName(this.getClass(), "testBasicParameterBinding", "arg0"));
     }
 
     @Test
@@ -52,8 +51,7 @@ class Log4jParameterResolverTest {
                 .isNotNull()
                 .isInstanceOf(SLF4JLogger.class)
                 .extracting(Logger::getName)
-                .isEqualTo(
-                        qualifiedMemberName(this.getClass(), "testNamedParameterBinding", "arg1"));
+                .isEqualTo(qualifiedMemberName(this.getClass(), "testNamedParameterBinding", "arg1"));
 
         assertThat(leveledLogger).extracting(Logger::isTraceEnabled).isEqualTo(false);
         assertThat(leveledLogger).extracting(Logger::isInfoEnabled).isEqualTo(false);

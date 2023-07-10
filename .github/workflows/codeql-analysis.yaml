@@ -1,5 +1,5 @@
 ##
-# Copyright (C) 2022 JCovalent
+# Copyright (C) 2022-2023 JCovalent
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -67,8 +67,8 @@ jobs:
 
       # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
       # If this step fails, then you should remove it and run the build manually (see below)
-#      - name: Autobuild
-#        uses: github/codeql-action/autobuild@b398f525a5587552e573b247ac661067fafa920b
+      #      - name: Autobuild
+      #        uses: github/codeql-action/autobuild@b398f525a5587552e573b247ac661067fafa920b
       - name: Setup Java
         uses: actions/setup-java@2c7a4878f5d120bd643426d54ae1209b29cc01a3
         with:

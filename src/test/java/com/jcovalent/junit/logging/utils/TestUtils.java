@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,7 @@ public final class TestUtils {
         assertThat(loggingOutput.errorLines()).isNotNull().isEmpty();
     }
 
-    public static <T> void safeAssertOutputOfNItems(
-            final Supplier<List<T>> outputSupplier, final int expectedCount) {
+    public static <T> void safeAssertOutputOfNItems(final Supplier<List<T>> outputSupplier, final int expectedCount) {
         assertThat(expectedCount).isPositive();
         assertThat(outputSupplier).isNotNull();
         assertThat(outputSupplier.get()).isNotNull().hasSize(expectedCount);

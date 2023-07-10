@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,26 +24,22 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 abstract class LogParameterResolver<L> extends LogResolver<L> implements ParameterResolver {
-    LogParameterResolver(
-            final Class<L> loggerClass, final Function<String, L> loggerInstanceSupplier) {
+    LogParameterResolver(final Class<L> loggerClass, final Function<String, L> loggerInstanceSupplier) {
         super(loggerClass, loggerInstanceSupplier);
     }
 
     @Override
-    public boolean supportsParameter(
-            final ParameterContext parameterContext, final ExtensionContext extensionContext)
+    public boolean supportsParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext)
             throws ParameterResolutionException {
         final Class<?> paramType = parameterContext.getParameter().getType();
         return getLoggerClass().equals(paramType) || paramType.isAssignableFrom(getLoggerClass());
     }
 
     @Override
-    public Object resolveParameter(
-            final ParameterContext parameterContext, final ExtensionContext extensionContext)
+    public Object resolveParameter(final ParameterContext parameterContext, final ExtensionContext extensionContext)
             throws ParameterResolutionException {
 
-        final Optional<ManagedLogger> annotation =
-                parameterContext.findAnnotation(ManagedLogger.class);
+        final Optional<ManagedLogger> annotation = parameterContext.findAnnotation(ManagedLogger.class);
         return resolve(
                 extensionContext,
                 parameterContext.getDeclaringExecutable().getDeclaringClass(),

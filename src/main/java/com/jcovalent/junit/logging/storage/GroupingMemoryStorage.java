@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,14 +31,12 @@ public class GroupingMemoryStorage<K extends Comparable<K>, V, G> extends Memory
     }
 
     public GroupingMemoryStorage(
-            final Supplier<SortedMap<K, V>> backingStoreSupplier,
-            final Function<V, G> groupingKeyProvider) {
+            final Supplier<SortedMap<K, V>> backingStoreSupplier, final Function<V, G> groupingKeyProvider) {
         super(backingStoreSupplier);
         this.groupingKeyProvider = groupingKeyProvider;
     }
 
-    protected GroupingMemoryStorage(
-            final SortedMap<K, V> backingStore, final Function<V, G> groupingKeyProvider) {
+    protected GroupingMemoryStorage(final SortedMap<K, V> backingStore, final Function<V, G> groupingKeyProvider) {
         super(backingStore);
         this.groupingKeyProvider = groupingKeyProvider;
     }
@@ -61,12 +59,11 @@ public class GroupingMemoryStorage<K extends Comparable<K>, V, G> extends Memory
 
     @Override
     public void reset() {
-        groups.forEach(
-                (k, v) -> {
-                    if (v != null) {
-                        v.reset();
-                    }
-                });
+        groups.forEach((k, v) -> {
+            if (v != null) {
+                v.reset();
+            }
+        });
 
         groups.clear();
         super.reset();

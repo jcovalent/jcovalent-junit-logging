@@ -15,11 +15,11 @@
  */
 package com.jcovalent.junit.logging;
 
-import static com.jcovalent.junit.logging.assertj.LoggingOutputAssert.assertThatLogEntriesHaveMessages;
 import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertEmptyOutput;
 import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertOutputOfNItems;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.jcovalent.junit.logging.assertj.LoggingOutputAssert;
 import com.jcovalent.junit.logging.logback.InMemoryLogStorage;
 import com.jcovalent.junit.logging.utils.Log4jExternalLoggers;
 import java.util.List;
@@ -46,8 +46,7 @@ class LoggingOutputTest {
         for (int i = 1; i <= n; i++) {
             logger.info(
                     MarkerManager.getMarker("INJECTED"),
-                    "[[Injected]] repeatedNTimes at INFO level for {} iterations, currently on"
-                            + " iteration {}",
+                    "[[Injected]] repeatedNTimes at INFO level for {} iterations, currently on" + " iteration {}",
                     n,
                     i);
         }
@@ -78,12 +77,10 @@ class LoggingOutputTest {
     @DisplayName("Assert the log level and message match")
     void testAssertLogMessage(final Logger logger, final LoggingOutput loggingOutput) {
         logger.info("This is a test message");
-        assertThatLogEntriesHaveMessages(
-                loggingOutput,
-                List.of(
-                        LogEntryBuilder.builder()
-                                .level(org.slf4j.event.Level.INFO)
-                                .message("This is a test message")
-                                .build()));
+        LoggingOutputAssert.assertThat(loggingOutput)
+                .hasAtLeastOneEntry(List.of(LogEntryBuilder.builder()
+                        .level(org.slf4j.event.Level.INFO)
+                        .message("This is a test message")
+                        .build()));
     }
 }

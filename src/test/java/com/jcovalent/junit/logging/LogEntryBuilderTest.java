@@ -27,18 +27,17 @@ public class LogEntryBuilderTest {
         Throwable throwable = new Exception();
         Instant timestamp = Instant.now();
 
-        LogEntry logEntry =
-                LogEntryBuilder.builder()
-                        .sequenceNumber(1)
-                        .timestamp(timestamp)
-                        .level(Level.DEBUG)
-                        .markerName("markerName")
-                        .threadName("threadName")
-                        .loggerName("loggerName")
-                        .message("my message")
-                        .throwable(throwable)
-                        .formattedLogLine("formattedLogLine")
-                        .build();
+        LogEntry logEntry = LogEntryBuilder.builder()
+                .sequenceNumber(1)
+                .timestamp(timestamp)
+                .level(Level.DEBUG)
+                .markerName("markerName")
+                .threadName("threadName")
+                .loggerName("loggerName")
+                .message("my message")
+                .throwable(throwable)
+                .formattedLogLine("formattedLogLine")
+                .build();
 
         assertThat(logEntry.sequenceNumber()).isEqualTo(1);
         assertThat(logEntry.timestamp()).isEqualTo(timestamp);
