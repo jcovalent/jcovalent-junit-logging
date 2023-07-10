@@ -18,7 +18,7 @@ import java.time.Duration
 
 plugins {
     id("java-library")
-    id("`maven-publish")
+    id("maven-publish")
     id("signing")
 
     id("com.gorylenko.gradle-git-properties").version("2.4.1")
