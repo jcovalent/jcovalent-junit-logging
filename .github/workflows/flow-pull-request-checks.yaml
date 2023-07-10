@@ -24,7 +24,7 @@ on:
 permissions:
   contents: read
 
-jobs:
+jobs: 
   code-compiles:
     name: "Code Compiles"
     runs-on: ubuntu-latest
