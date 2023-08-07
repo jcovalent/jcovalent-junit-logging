@@ -10,6 +10,10 @@ import org.junit.jupiter.api.extension.Extension;
 
 module com.jcovalent.junit.logging {
     exports com.jcovalent.junit.logging;
+    exports com.jcovalent.junit.logging.assertj;
+
+    opens com.jcovalent.junit.logging.extensions to
+            org.junit.platform.commons;
 
     requires org.junit.jupiter.api;
     requires org.apache.logging.log4j;
