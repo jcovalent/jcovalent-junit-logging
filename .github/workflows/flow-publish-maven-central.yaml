@@ -66,7 +66,7 @@ jobs:
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2.7.0
+        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2.7.1
         with:
           gradle-version: wrapper
           gradle-home-cache-includes: |
@@ -75,13 +75,13 @@ jobs:
             jdks
 
       - name: Gradle Assemble
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2.7.0
+        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2.7.1
         with:
           gradle-version: wrapper
           arguments: assemble --scan
 
       - name: Gradle Publish
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2.7.0
+        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2.7.1
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
