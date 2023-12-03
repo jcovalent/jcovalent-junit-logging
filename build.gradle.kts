@@ -22,7 +22,7 @@ plugins {
     id("signing")
 
     id("com.gorylenko.gradle-git-properties").version("2.4.1")
-    id("com.diffplug.spotless").version("6.19.0")
+    id("com.diffplug.spotless").version("6.23.2")
     id("io.github.gradle-nexus.publish-plugin").version("1.3.0")
 }
 

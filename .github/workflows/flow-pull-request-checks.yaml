@@ -41,6 +41,7 @@ jobs:
             jcenter.bintray.com:443
             plugins-artifacts.gradle.org:443
             plugins.gradle.org:443
+            services.gradle.org:443
             repo.maven.apache.org:443
             scans-in.gradle.com:443
             services.gradle.org:443
