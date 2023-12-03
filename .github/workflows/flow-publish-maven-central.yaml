@@ -32,15 +32,16 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            artifactcache.actions.githubusercontent.com:443
-            downloads.gradle-dn.com:443
             github.com:443
+            artifactcache.actions.githubusercontent.com:443
+            objects.githubusercontent.com:443
+            downloads.gradle-dn.com:443
             plugins.gradle.org:443
             plugins-artifacts.gradle.org:443
             repo.gradle.org:443
-            repo.maven.apache.org:443
             scans-in.gradle.com:443
             services.gradle.org:443
+            repo.maven.apache.org:443
             s01.oss.sonatype.org:443
             jcenter.bintray.com:443
 
