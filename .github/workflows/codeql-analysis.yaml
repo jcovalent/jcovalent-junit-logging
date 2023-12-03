@@ -51,10 +51,15 @@ jobs:
           allowed-endpoints: >
             api.github.com:443
             github.com:443
+            objects.githubusercontent.com:443
+            downloads.gradle.org:443
+            jcenter.bintray.com:443
+            plugins-artifacts.gradle.org:443
             plugins.gradle.org:443
             services.gradle.org:443
-            scans-in.gradle.com:443
             repo.maven.apache.org:443
+            scans-in.gradle.com:443
+            services.gradle.org:443
 
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
