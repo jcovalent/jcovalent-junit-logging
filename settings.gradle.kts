@@ -29,7 +29,7 @@ dependencyResolutionManagement {
             version("assertj-version", "3.24.2")
             version("slf4j-version", "2.0.7")
             version("logback-version", "1.4.14")
-            version("log4j-version", "2.22.0")
+            version("log4j-version", "2.20.0")
             version("junit-jupiter-version", "5.10.1")
             version("junit-platform-version", "1.10.1")
 
