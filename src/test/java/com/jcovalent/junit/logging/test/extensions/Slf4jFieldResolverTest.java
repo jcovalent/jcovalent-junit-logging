@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 JCovalent
+ * Copyright (C) 2022-2023 JCovalent
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jcovalent.junit.logging.extensions;
+package com.jcovalent.junit.logging.test.extensions;
 
 import static com.jcovalent.junit.logging.utils.Utils.qualifiedMemberName;
 import static org.assertj.core.api.Assertions.assertThat;

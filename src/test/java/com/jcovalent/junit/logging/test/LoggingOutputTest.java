@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jcovalent.junit.logging;
+package com.jcovalent.junit.logging.test;
 
-import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertEmptyOutput;
-import static com.jcovalent.junit.logging.utils.TestUtils.safeAssertOutputOfNItems;
+import static com.jcovalent.junit.logging.test.utils.TestUtils.safeAssertEmptyOutput;
+import static com.jcovalent.junit.logging.test.utils.TestUtils.safeAssertOutputOfNItems;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.jcovalent.junit.logging.JCovalentLoggingSupport;
+import com.jcovalent.junit.logging.LogEntryBuilder;
+import com.jcovalent.junit.logging.LoggingOutput;
+import com.jcovalent.junit.logging.LoggingOutputScope;
 import com.jcovalent.junit.logging.assertj.LoggingOutputAssert;
 import com.jcovalent.junit.logging.logback.InMemoryLogStorage;
-import com.jcovalent.junit.logging.utils.Log4jExternalLoggers;
+import com.jcovalent.junit.logging.test.utils.Log4jExternalLoggers;
 import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;

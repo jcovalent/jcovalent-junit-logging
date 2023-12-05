@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jcovalent.junit.logging;
+package com.jcovalent.junit.logging.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.jcovalent.junit.logging.LogEntry;
+import com.jcovalent.junit.logging.LogEntryBuilder;
 import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.slf4j.event.Level;
